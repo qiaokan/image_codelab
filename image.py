@@ -18,10 +18,9 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 
-def trainModel():
+def trainModel(epochs):
   batch_size = 32
   num_classes = 10
-  epochs = 10
   data_augmentation = True
 
   # The data, shuffled and split between train and test sets:
@@ -122,19 +121,16 @@ def predict(filename):
   print("result = ", all_types[result_type])
 
 # main function
-if len(sys.argv) < 2:
+if len(sys.argv) != 3:
     print('Must provide at least one parameter: train or predict')
     exit()
 else:
     if sys.argv[1] == 'predict':
       print('in prediction mode')
-      if len(sys.argv) < 3:
-        print('Must provide image path')
-        exit()
       predict(sys.argv[2])
     elif sys.argv[1] == 'train':
       print('in training mode')
-      trainModel()
+      trainModel(int(sys.argv[2]))
     else:
       print('unknown mode')
       exit()
